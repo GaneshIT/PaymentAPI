@@ -22,7 +22,7 @@ namespace PaymentData.Repository
         }
         public void Delete(int id)
         {
-            var t = _context.transactions.Find(id);//it will generate sql statement with where condition PK
+            var t = _context.transactions.Find(id);//it will generate sql select statement with where condition PK
             _context.transactions.Remove(t);
             _context.SaveChanges();
 
@@ -34,12 +34,12 @@ namespace PaymentData.Repository
         }
         public List<Transactions> GetAll()
         {
-            return _context.transactions.ToList();
+            return _context.transactions.ToList();//select * from transactions
         }
         public void Update(Transactions t)
         {
-            _context.transactions.Update(t);
-            _context.SaveChanges();
+            _context.transactions.Update(t);//update transations set col1=value,col2=value
+            _context.SaveChanges(); //Add,Update,Remove
         }
     }
 }

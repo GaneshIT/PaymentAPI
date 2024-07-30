@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PaymentData.Repository;
+using PaymentModel;
 
 namespace PaymentAPI.Controllers
 {
@@ -7,30 +9,40 @@ namespace PaymentAPI.Controllers
     [ApiController]
     public class TransactionsController : ControllerBase
     {
+        private readonly ITransactions _transactions;
+        public TransactionsController(ITransactions transactions)
+        {
+            _transactions = transactions;
+        }
         [HttpGet("Get")]
         public IActionResult Get(int transactionid)
         {
-            return Ok();
+            var result = _transactions.Get(transactionid);
+            return Ok(result);
         }
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Create(Transactions t)
         {
-            return Ok();
+            _transactions.Create(t);
+            return Ok("Inserted");
         }
         [HttpPut]
-        public IActionResult Update()
+        public IActionResult Update(Transactions t)
         {
-            return Ok();
+            _transactions.Update(t);
+            return Ok("Updated");
         }
         [HttpDelete]
-        public IActionResult Delete()
+        public IActionResult Delete(int id)
         {
-            return Ok();
+            _transactions.Delete(id);
+            return Ok("Inserted");
         }
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            return Ok();
+            var result=_transactions.GetAll();
+            return Ok(result);
         }
     }
 }

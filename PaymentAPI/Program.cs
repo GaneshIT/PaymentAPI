@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentData.Data;
+using PaymentData.Repository;
+using PaymentModel;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 var conStr = builder.Configuration.GetConnectionString("sql");
 builder.Services.AddDbContext<PaymentDbContext>(options => options.UseSqlServer(conStr));
+//IITransactions obj=new TransactionReposity();
+builder.Services.AddScoped<ITransactions, TransactionReposity>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
